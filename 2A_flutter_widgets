@@ -1,0 +1,94 @@
+EXPERIMENT-2
+a) Explore various Flutter widgets (Text, Image, Container, etc.).
+Description:
+In Flutter, widgets are the fundamental building blocks of the user interface. Each element you see on the screen is a widget, from simple text labels to complex layouts. For example, the Text widget is used to display a string of text with customizable styles such as font size, color, and weight. The Image widget allows you to display images from assets, network, or files, supporting various formats and fitting options. The Container widget is a versatile box model that can hold a child widget and apply styling properties like padding, margin, borders, background color, and size constraints, making it ideal for layout and decoration purposes. Together, these widgets form the basis of designing responsive, flexible, and visually appealing Flutter applications. By combining and nesting widgets, developers can create intricate UI designs with precise control over appearance and behavior.
+Program:
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  // Using a reliable Flutter logo from a trusted source
+  final String imageUrl =
+      'https://upload.wikimedia.org/wikipedia/commons/1/17/Google-flutter-logo.png';
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Widgets Demo',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Flutter Widgets Demo'),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+
+              // 📝 TEXT WIDGET
+              Text(
+                '🌟 Welcome to Flutter!',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.deepPurple,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              SizedBox(height: 20),
+
+              // 🖼️ IMAGE WIDGET with error handling
+              Image.network(
+                imageUrl,
+                width: 200,
+                errorBuilder: (context, error, stackTrace) {
+                  return Column(
+                    children: [
+                      Icon(Icons.error, color: Colors.red, size: 40),
+                      Text('Failed to load image'),
+                    ],
+                  );
+                },
+              ),
+
+              SizedBox(height: 20),
+
+              // 📦 CONTAINER WIDGET
+              Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.amber[200],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  'This is a container with padding and background color.',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+
+              SizedBox(height: 20),
+
+              // 🎯 ICON WIDGETS IN A ROW
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.favorite, color: Colors.red, size: 30),
+                  SizedBox(width: 10),
+                  Icon(Icons.star, color: Colors.orange, size: 30),
+                  SizedBox(width: 10),
+                  Icon(Icons.thumb_up, color: Colors.blue, size: 30),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+ 
+
