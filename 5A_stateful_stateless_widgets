@@ -1,0 +1,84 @@
+EXPERIMENT-5
+a) Learn about stateful and stateless widgets.
+Description:
+In Flutter, widgets are the fundamental building blocks of the user interface, and they are mainly classified into two types: Stateless widgets and Stateful widgets. A Stateless widget is immutable, meaning once it is built, it cannot change its state or data. These widgets are typically used to display static content such as text, icons, or images. Common examples include Text, Icon, and ElevatedButton (previously RaisedButton). On the other hand, a Stateful widget is mutable and can change its internal state during runtime using the setState() method. These widgets are suitable for handling dynamic content that needs to update or respond to user interactions, such as counters, forms, or animations. Examples include Checkbox, TextField, and Slider. Together, these two types of widgets allow Flutter developers to build both static and interactive parts of an application.
+Program:
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+// Root App
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: Colors.grey[200],
+        appBar: AppBar(title: Text("Stateless vs Stateful")),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            MyStatelessWidget(),
+            SizedBox(height: 30),
+            MyStatefulWidget(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Stateless Widget
+class MyStatelessWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.orange[200],
+      margin: EdgeInsets.all(12),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(
+          "I am Stateless 😎",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+}
+
+// Stateful Widget
+class MyStatefulWidget extends StatefulWidget {
+  @override
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  int counter = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.lightBlue[100],
+      margin: EdgeInsets.all(12),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Text("I am Stateful 🌀\nCounter: $counter",
+                style: TextStyle(fontSize: 18), textAlign: TextAlign.center),
+            SizedBox(height: 10),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () => setState(() => counter++),
+              child: Text("Add Count"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
