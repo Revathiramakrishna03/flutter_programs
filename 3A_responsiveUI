@@ -1,0 +1,122 @@
+EXPERIMENT-3
+a) Design a responsive UI that adapts to different screen sizes.
+Description:
+Designing a responsive UI in Flutter involves creating layouts that adapt seamlessly to different screen sizes and orientations, providing a consistent user experience across devices such as phones, tablets, and desktops. Flutter’s flexible widget system, combined with tools like MediaQuery and LayoutBuilder, allows developers to dynamically adjust widget sizes, padding, and layout structures based on the available screen dimensions. Using techniques such as flexible widgets (Expanded, Flexible), percentage-based sizing, and adaptive breakpoints, a responsive UI can rearrange or resize elements to fit small mobile screens or large desktop displays. This approach ensures usability and visual appeal regardless of device, making the app accessible and easy to navigate on any platform.
+Program:
+import 'package:flutter/material.dart';
+
+void main() => runApp(ResponsiveApp());
+
+class ResponsiveApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Responsive UI Demo',
+      home: Scaffold(
+        appBar: AppBar(title: Text('Responsive UI Example')),
+        body: ResponsiveLayout(),
+      ),
+    );
+  }
+}
+
+class ResponsiveLayout extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Get screen width and height using MediaQuery
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 600) {
+          // Small screen: Mobile layout
+          return mobileLayout();
+        } else if (constraints.maxWidth < 900) {
+          // Medium screen: Tablet layout
+          return tabletLayout();
+        } else {
+          // Large screen: Desktop layout
+          return desktopLayout();
+        }
+      },
+    );
+  }
+
+  Widget mobileLayout() {
+    return Padding(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        children: [
+          titleText('Mobile Layout'),
+          SizedBox(height: 20),
+          responsiveBox(Colors.blue, 150),
+          SizedBox(height: 20),
+          responsiveBox(Colors.green, 150),
+        ],
+      ),
+    );
+  }
+
+  Widget tabletLayout() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+      child: Column(
+        children: [
+          titleText('Tablet Layout'),
+          SizedBox(height: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              responsiveBox(Colors.blue, 200),
+              responsiveBox(Colors.green, 200),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget desktopLayout() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 64, vertical: 32),
+      child: Column(
+        children: [
+          titleText('Desktop Layout'),
+          SizedBox(height: 40),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              responsiveBox(Colors.blue, 250),
+              responsiveBox(Colors.green, 250),
+              responsiveBox(Colors.orange, 250),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget titleText(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  Widget responsiveBox(Color color, double size) {
+    return Container(
+      width: size,
+      height: size,
+      color: color,
+      alignment: Alignment.center,
+      child: Text(
+        'Box',
+        style: TextStyle(color: Colors.white, fontSize: 18),
+      ),
+    );
+  }
+}
+
