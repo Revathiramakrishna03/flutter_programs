@@ -1,0 +1,44 @@
+EXPERIMENT-1
+b) Write a simple Dart program to understand the language basics.
+Program:
+void main() {
+  String name = 'John';
+  int age = 20;
+
+  print('Name: $name, Age: $age');
+
+  if (age >= 18) {
+    print('$name is an adult.');
+  } else {
+    print('$name is a minor.');
+  }
+
+  for (int i = 1; i <= 3; i++) {
+    print('Count: $i');
+  }
+
+  greet(name);
+}
+
+void greet(String name) {
+  print('Hello, $name!');
+}
+
+Explanation of Components:
+•	void main()
+The entry point of every Dart program. The code inside main() runs when the program starts.
+•	Variables (String name, int age)
+Store data with specific types:
+o	String holds text.
+o	int holds whole numbers.
+•	print()
+Displays output in the console. Here it shows the name and age, and messages inside the condition and loop.
+•	Conditional statement (if-else)
+Executes different code based on a condition.
+If age is 18 or older, it prints that the person is an adult; otherwise, it prints that they are a minor.
+•	for loop
+Repeats a block of code multiple times.
+Here, it counts from 1 to 3, printing each number.
+•	Function (greet)
+A reusable block of code that takes a parameter (name) and prints a greeting message.
+It is called from main() with greet(name).
