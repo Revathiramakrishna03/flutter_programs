@@ -1,0 +1,93 @@
+EXPERIMENT-5
+b) Implement state management using set State and Provider.
+Description : 
+In Flutter, state management is the technique used to control how data is stored and updated within an app. The two simplest ways to handle this are setState and Provider. Using setState, the state is managed locally inside a single widget, and UI updates happen only within that widget when setState() is called. This approach is best for small, isolated changes like counters, toggles, or form fields. On the other hand, Provider is used for managing and sharing state globally across the entire app. It stores the state in a separate class and makes it accessible to multiple widgets, ensuring consistent updates everywhere. This is useful for features like a shopping cart, authentication, or themes where many screens depend on the same data. Together, setState is suitable for local state, while Provider is ideal for global state sharing in real-world applications.
+
+Program:
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => CartProvider(),
+      child: MyApp(),
+    ),
+  );
+}
+
+// Root app with 2 tabs
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text("Cart Demo"),
+            bottom: TabBar(tabs: [
+              Tab(text: "setState"),
+              Tab(text: "Provider"),
+            ]),
+          ),
+          body: TabBarView(
+            children: [LocalCart(), GlobalCart()],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/////////////////////////////
+// 1. setState (Local Cart) //
+/////////////////////////////
+class LocalCart extends StatefulWidget {
+  @override
+  _LocalCartState createState() => _LocalCartState();
+}
+
+class _LocalCartState extends State<LocalCart> {
+  int apples = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Text("Apples: $apples", style: TextStyle(fontSize: 24)),
+        ElevatedButton(
+          onPressed: () => setState(() => apples++),
+          child: Text("Add Apple"),
+        ),
+      ]),
+    );
+  }
+}
+
+/////////////////////////////
+// 2. Provider (Global Cart) //
+/////////////////////////////
+class CartProvider extends ChangeNotifier {
+  int items = 0;
+  void add() {
+    items++;
+    notifyListeners();
+  }
+}
+
+class GlobalCart extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final cart = Provider.of<CartProvider>(context);
+    return Center(
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Text("Cart Items: ${cart.items}", style: TextStyle(fontSize: 24)),
+        ElevatedButton(
+          onPressed: cart.add,
+          child: Text("Add Item"),
+        ),
+      ]),
+    );
+  }
+}
+
